@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f1720">
+  <title>Tim — Manutenção Elétrica & Técnica Residencial</title>
+  <meta name="description" content="Solicite atendimento para manutenção elétrica, diagnóstico de falhas, aparelhos elétricos, computadores e rede em Balneário Camboriú e região.">
+  <style>
+    :root{
+      --bg:#f5f7f6; --card:#ffffff; --ink:#17201d; --muted:#66736e;
+      --line:#dbe3df; --accent:#16a36f; --accent-dark:#0b7b52;
+      --soft:#edf8f3; --warn:#fff8e6; --shadow:0 14px 40px rgba(23,32,29,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:var(--bg);color:var(--ink);
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .shell{width:min(760px,calc(100% - 28px));margin:0 auto;padding:28px 0 60px}
+    .hero{
+      background:#0f1720;color:#fff;border-radius:28px;padding:28px;
+      box-shadow:var(--shadow);position:relative;overflow:hidden;
+    }
+    .hero:after{
+      content:"";position:absolute;width:230px;height:230px;border-radius:50%;
+      right:-90px;top:-110px;background:rgba(52,211,153,.14);filter:blur(2px)
+    }
+    .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9ee8cc;font-weight:700}
+    h1{font-size:clamp(28px,7vw,46px);line-height:1.03;margin:10px 0 12px;max-width:650px}
+    .lead{color:#c8d5d0;margin:0;max-width:620px;font-size:16px}
+    .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .pill{border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:999px;font-size:13px;color:#e9f2ef}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+      border:0;border-radius:14px;padding:13px 16px;font-weight:800;font-size:14px;cursor:pointer;
+      transition:.15s ease;
+    }
+    .btn-primary{background:#34d399;color:#09251b}
+    .btn-primary:hover{background:#47deb0}
+    .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.13)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:18px;box-shadow:0 8px 24px rgba(20,35,29,.035)}
+    .card h2{font-size:20px;margin:0 0 5px}
+    .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .full{grid-column:1/-1}
+    label{font-size:13px;font-weight:750;display:block;margin:0 0 7px}
+    .optional{font-weight:500;color:var(--muted)}
+    input,select,textarea{
+      width:100%;border:1px solid #cad5d0;background:#fbfcfc;color:var(--ink);
+      border-radius:13px;padding:13px 14px;font:inherit;outline:none;min-height:48px;
+    }
+    textarea{min-height:126px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(22,163,111,.10)}
+    .choices{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .choice{
+      display:flex;align-items:flex-start;gap:9px;border:1px solid var(--line);
+      border-radius:13px;padding:11px 12px;background:#fff;font-size:13px;font-weight:650;
+    }
+    .choice input{width:auto;min-height:0;margin:2px 0 0}
+    .notice{
+      background:var(--warn);border:1px solid #f1dfa8;border-radius:14px;
+      padding:12px 14px;font-size:13px;color:#625329;margin-top:14px
+    }
+    .summary{
+      background:var(--soft);border:1px solid #cdebdc;border-radius:16px;padding:15px;
+      font-size:13px;white-space:pre-wrap;min-height:76px;color:#214236
+    }
+    .submit-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+    .submit-row .btn{font-size:15px;padding:14px 18px}
+    .small{color:var(--muted);font-size:12px;margin-top:10px}
+    .scope{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .scope-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+    .scope-item strong{display:block;font-size:13px;margin-bottom:3px}
+    .scope-item span{font-size:12px;color:var(--muted)}
+    footer{color:var(--muted);font-size:12px;text-align:center;margin-top:22px}
+    .status{display:none;margin-top:12px;border-radius:12px;padding:11px 13px;font-size:13px}
+    .status.show{display:block}
+    .status.ok{background:#eaf8f1;color:#165e43}
+    .status.err{background:#fff0f0;color:#8a2424}
+    @media(max-width:620px){
+      .shell{width:min(100% - 18px,760px);padding-top:9px}
+      .hero{padding:22px;border-radius:22px}
+      .card{padding:17px;border-radius:18px}
+      .grid,.choices{grid-template-columns:1fr}
+      .scope{grid-template-columns:1fr}
+      .full{grid-column:auto}
+      .top-actions,.submit-row{flex-direction:column;align-items:stretch}
+      .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Balneário Camboriú e região</div>
+      <h1>Manutenção elétrica & técnica residencial</h1>
+      <p class="lead">Descreva o problema em 1 minuto. Tim recebe as informações organizadas e responde pelo WhatsApp para confirmar o atendimento.</p>
+      <div class="hero-meta">
+        <span class="pill">Elétrica residencial</span>
+        <span class="pill">Diagnóstico de falhas</span>
+        <span class="pill">Aparelhos elétricos</span>
+        <span class="pill">Computadores & rede</span>
+      </div>
+      <div class="top-actions">
+        <a class="btn btn-primary" href="#pedido">Solicitar atendimento</a>
+        <a class="btn btn-ghost" href="https://wa.me/5513996532915" target="_blank" rel="noopener">Falar direto no WhatsApp</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>O que atendemos</h2>
+      <p class="sub">Manutenção, diagnóstico e pequenos serviços técnicos em residências e imóveis.</p>
+      <div class="scope">
+        <div class="scope-item"><strong>Elétrica residencial</strong><span>Tomadas, interruptores, iluminação, disjuntores e falhas elétricas.</span></div>
+        <div class="scope-item"><strong>Equipamentos elétricos</strong><span>Diagnóstico de aparelho que não liga, falhas, alimentação e conexões.</span></div>
+        <div class="scope-item"><strong>Computadores & rede</strong><span>PC que não liga, cabos, rede doméstica e problemas de conexão.</span></div>
+      </div>
+      <div class="notice">Não realizamos obras, construção civil ou serviços de acabamento. Em caso de faíscas, cheiro de queimado ou risco imediato, desligue a energia no quadro apenas se isso puder ser feito com segurança.</div>
+    </section>
+
+    <form id="pedido" class="card" novalidate>
+      <h2>Solicitar atendimento</h2>
+      <p class="sub">Preencha os dados abaixo. Ao enviar, abriremos uma mensagem pronta no WhatsApp do Tim com todas as informações.</p>
+
+      <div class="grid">
+        <div>
+          <label for="nome">Seu nome</label>
+          <input id="nome" name="nome" autocomplete="name" required placeholder="Ex.: Mariana">
+        </div>
+        <div>
+          <label for="telefone">WhatsApp / telefone</label>
+          <input id="telefone" name="telefone" autocomplete="tel" required placeholder="Ex.: (47) 99999-9999">
+        </div>
+
+        <div>
+          <label for="cidade">Cidade</label>
+          <input id="cidade" name="cidade" required value="Balneário Camboriú">
+        </div>
+        <div>
+          <label for="bairro">Bairro</label>
+          <input id="bairro" name="bairro" required placeholder="Ex.: Centro">
+        </div>
+
+        <div class="full">
+          <label for="endereco">Endereço <span class="optional">(rua, número, condomínio)</span></label>
+          <input id="endereco" name="endereco" autocomplete="street-address" placeholder="Ex.: Rua 1500, 320 — Ed. ...">
+        </div>
+        <div>
+          <label for="complemento">Bloco / apartamento <span class="optional">(opcional)</span></label>
+          <input id="complemento" name="complemento" placeholder="Ex.: Bloco B, apto 604">
+        </div>
+        <div>
+          <label for="tipo">Tipo de atendimento</label>
+          <select id="tipo" name="tipo" required>
+            <option value="">Selecione</option>
+            <option>Elétrica residencial</option>
+            <option>Tomada / interruptor / iluminação</option>
+            <option>Quadro / disjuntor / queda de energia</option>
+            <option>Aparelho elétrico / diagnóstico</option>
+            <option>Computador / rede / internet</option>
+            <option>Outro problema técnico</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>O que está acontecendo? <span class="optional">(marque o que ajudar)</span></label>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="sintoma" value="Sem energia / parte da casa sem energia">Sem energia / parte da casa sem energia</label>
+            <label class="choice"><input type="checkbox" name="sintoma" value="Disjuntor desarmando">Disjuntor desarmando</label>
+            <label class="choice"><input type="checkbox" name="sintoma" value="Tomada, interruptor ou luz com problema">Tomada, interruptor ou luz com problema</label>
+            <label class="choice"><input type="checkbox" name="sintoma" value="Aparelho não liga / falha elétrica">Aparelho não liga / falha elétrica</label>
+            <label class="choice"><input type="checkbox" name="sintoma" value="Computador / rede / conexão">Computador / rede / conexão</label>
+            <label class="choice"><input type="checkbox" name="sintoma" value="Outro">Outro</label>
+          </div>
+        </div>
+
+        <div class="full">
+          <label for="descricao">Descreva o problema</label>
+          <textarea id="descricao" name="descricao" required placeholder="Ex.: O chuveiro funciona, mas quando ligo ele o disjuntor desarma. Começou ontem."></textarea>
+        </div>
+
+        <div>
+          <label for="urgencia">Quando precisa?</label>
+          <select id="urgencia" name="urgencia" required>
+            <option value="">Selecione</option>
+            <option>Hoje, se possível</option>
+            <option>Amanhã</option>
+            <option>Nos próximos 2–3 dias</option>
+            <option>Esta semana</option>
+            <option>Sem urgência</option>
+          </select>
+        </div>
+        <div>
+          <label for="data">Dia preferido <span class="optional">(opcional)</span></label>
+          <input id="data" name="data" type="date">
+        </div>
+
+        <div>
+          <label for="periodo">Melhor período</label>
+          <select id="periodo" name="periodo">
+            <option>Qualquer horário</option>
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Fim da tarde / início da noite</option>
+          </select>
+        </div>
+        <div>
+          <label for="acesso">Acesso ao imóvel <span class="optional">(opcional)</span></label>
+          <select id="acesso" name="acesso">
+            <option value="">Selecione, se necessário</option>
+            <option>Estarei no local</option>
+            <option>Portaria / zelador pode liberar</option>
+            <option>Imobiliária / administrador acompanha</option>
+            <option>Combinar antes</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label for="obs">Observações <span class="optional">(opcional)</span></label>
+          <textarea id="obs" name="obs" placeholder="Ex.: apartamento alugado, preciso combinar com o inquilino; tenho foto do quadro; estacionamento disponível..."></textarea>
+        </div>
+
+        <div class="full">
+          <label>Resumo da solicitação</label>
+          <div id="resumo" class="summary">Preencha o formulário e o resumo aparecerá aqui.</div>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn btn-primary" type="submit">Enviar pedido para Tim</button>
+        <a class="btn" style="background:#edf1ef;color:#27342f" href="tel:+5513996532915">Ligar: (13) 99653-2915</a>
+      </div>
+      <div id="status" class="status"></div>
+      <p class="small">Os dados não são enviados para um servidor nesta versão. O formulário apenas organiza sua solicitação e abre a mensagem pronta no WhatsApp. Fotos e vídeos podem ser enviados no chat depois.</p>
+    </form>
+
+    <footer>Tim — Manutenção Elétrica & Técnica Residencial · WhatsApp (13) 99653-2915</footer>
+  </main>
+
+<script>
+(() => {
+  const form = document.getElementById('pedido');
+  const resumo = document.getElementById('resumo');
+  const status = document.getElementById('status');
+  const WA = '5513996532915';
+
+  const get = id => document.getElementById(id)?.value?.trim() || '';
+  const sintomas = () => [...form.querySelectorAll('input[name="sintoma"]:checked')].map(x => x.value);
+
+  function buildSummary() {
+    const parts = [];
+    const nome = get('nome');
+    const tipo = get('tipo');
+    const cidade = get('cidade');
+    const bairro = get('bairro');
+    const desc = get('descricao');
+    if (nome) parts.push(`Cliente: ${nome}`);
+    if (tipo) parts.push(`Serviço: ${tipo}`);
+    if (cidade || bairro) parts.push(`Local: ${[cidade,bairro].filter(Boolean).join(' / ')}`);
+    if (desc) parts.push(`Problema: ${desc}`);
+    const s = sintomas();
+    if (s.length) parts.push(`Sinais: ${s.join('; ')}`);
+    const urg = get('urgencia');
+    const data = get('data');
+    const periodo = get('periodo');
+    if (urg || data || periodo) parts.push(`Visita: ${[urg, data, periodo].filter(Boolean).join(' · ')}`);
+    resumo.textContent = parts.length ? parts.join('\n') : 'Preencha o formulário e o resumo aparecerá aqui.';
+  }
+
+  form.addEventListener('input', buildSummary);
+  form.addEventListener('change', buildSummary);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    status.className = 'status';
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      status.textContent = 'Preencha os campos obrigatórios antes de enviar.';
+      status.className = 'status show err';
+      return;
+    }
+
+    const s = sintomas();
+    const endereco = [get('endereco'), get('complemento')].filter(Boolean).join(' · ');
+    const msg = [
+      'Olá, Tim. Quero solicitar um atendimento.',
+      '',
+      `Nome: ${get('nome')}`,
+      `Telefone: ${get('telefone')}`,
+      `Cidade / bairro: ${get('cidade')} / ${get('bairro')}`,
+      `Endereço: ${endereco || 'a combinar'}`,
+      '',
+      `Tipo de atendimento: ${get('tipo')}`,
+      `Sintomas: ${s.length ? s.join('; ') : 'não informado'}`,
+      `Problema: ${get('descricao')}`,
+      '',
+      `Quando precisa: ${get('urgencia')}`,
+      `Dia preferido: ${get('data') || 'a combinar'}`,
+      `Período: ${get('periodo') || 'a combinar'}`,
+      `Acesso: ${get('acesso') || 'a combinar'}`,
+      '',
+      `Observações: ${get('obs') || 'nenhuma'}`
+    ].join('\n');
+
+    status.textContent = 'Abrindo o WhatsApp com sua solicitação pronta…';
+    status.className = 'status show ok';
+
+    const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+    window.location.href = url;
+  });
+
+  buildSummary();
+})();
+</script>
+</body>
+</html>
