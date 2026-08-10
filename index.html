@@ -4,13 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0f1720">
-  <title>Tim — Manutenção Elétrica & Técnica Residencial</title>
-  <meta name="description" content="Solicite atendimento para manutenção elétrica, diagnóstico de falhas, aparelhos elétricos, computadores e rede em Balneário Camboriú e região.">
+  <title>Tim Serviços Elétricos — Balneário Camboriú e região</title>
+  <meta name="description" content="Manutenção elétrica residencial, diagnóstico de falhas e pequenos serviços técnicos em Balneário Camboriú e região. Fale direto com Tim pelo WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Tim Serviços Elétricos — Atendimento residencial">
+  <meta property="og:description" content="Explique o problema e combine o atendimento diretamente com Tim pelo WhatsApp.">
+  <meta property="og:url" content="https://brazilportal.online/tim">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Electrician",
+    "name": "Tim Serviços Elétricos",
+    "url": "https://brazilportal.online/tim",
+    "telephone": "+55 13 99653-2915",
+    "areaServed": ["Balneário Camboriú", "Região de Balneário Camboriú"],
+    "description": "Manutenção elétrica residencial, diagnóstico de falhas e pequenos serviços técnicos."
+  }
+  </script>
   <style>
     :root{
       --bg:#f5f7f6; --card:#ffffff; --ink:#17201d; --muted:#66736e;
-      --line:#dbe3df; --accent:#16a36f; --accent-dark:#0b7b52;
-      --soft:#edf8f3; --warn:#fff8e6; --shadow:0 14px 40px rgba(23,32,29,.08);
+      --line:#dbe3df; --accent:#f6c344; --accent-dark:#d89d0e;
+      --green:#16a36f; --soft:#edf8f3; --warn:#fff8e6; --shadow:0 14px 40px rgba(23,32,29,.08);
       --radius:22px;
     }
     *{box-sizing:border-box}
@@ -20,18 +36,24 @@
       line-height:1.45;
     }
     a{color:inherit}
-    .shell{width:min(760px,calc(100% - 28px));margin:0 auto;padding:28px 0 60px}
+    .shell{width:min(860px,calc(100% - 28px));margin:0 auto;padding:22px 0 76px}
+    .brandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.02em;text-decoration:none}
+    .brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#0f1720;color:var(--accent);font-size:20px}
+    .brand small{display:block;color:var(--muted);font-size:11px;font-weight:650;letter-spacing:0}
+    .brand-phone{font-size:13px;font-weight:800;text-decoration:none}
     .hero{
       background:#0f1720;color:#fff;border-radius:28px;padding:28px;
       box-shadow:var(--shadow);position:relative;overflow:hidden;
     }
     .hero:after{
       content:"";position:absolute;width:230px;height:230px;border-radius:50%;
-      right:-90px;top:-110px;background:rgba(52,211,153,.14);filter:blur(2px)
+      right:-90px;top:-110px;background:rgba(246,195,68,.14);filter:blur(2px)
     }
-    .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9ee8cc;font-weight:700}
+    .eyebrow{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#ffe6a5;font-weight:800}
+    .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(246,195,68,.13)}
     h1{font-size:clamp(28px,7vw,46px);line-height:1.03;margin:10px 0 12px;max-width:650px}
-    .lead{color:#c8d5d0;margin:0;max-width:620px;font-size:16px}
+    .lead{color:#d7e0dc;margin:0;max-width:650px;font-size:17px}
     .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
     .pill{border:1px solid rgba(255,255,255,.16);padding:8px 10px;border-radius:999px;font-size:13px;color:#e9f2ef}
     .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
@@ -40,9 +62,14 @@
       border:0;border-radius:14px;padding:13px 16px;font-weight:800;font-size:14px;cursor:pointer;
       transition:.15s ease;
     }
-    .btn-primary{background:#34d399;color:#09251b}
-    .btn-primary:hover{background:#47deb0}
+    .btn-primary{background:var(--accent);color:#211a07;box-shadow:0 7px 20px rgba(246,195,68,.18)}
+    .btn-primary:hover{background:#ffd15f}
     .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.13)}
+    .trust-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:14px;box-shadow:0 8px 24px rgba(20,35,29,.035)}
+    .trust-item{background:#fff;padding:15px 16px;display:flex;gap:10px;align-items:flex-start}
+    .trust-icon{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:var(--soft);color:#087a50;font-weight:900}
+    .trust-item strong{display:block;font-size:13px;margin-bottom:2px}
+    .trust-item span{display:block;color:var(--muted);font-size:11px;line-height:1.35}
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:18px;box-shadow:0 8px 24px rgba(20,35,29,.035)}
     .card h2{font-size:20px;margin:0 0 5px}
     .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
@@ -77,6 +104,13 @@
     .scope-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
     .scope-item strong{display:block;font-size:13px;margin-bottom:3px}
     .scope-item span{font-size:12px;color:var(--muted)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:step}
+    .step{position:relative;border-top:3px solid var(--accent);background:#fafbf9;border-radius:5px 5px 14px 14px;padding:16px;counter-increment:step}
+    .step:before{content:counter(step);display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:#0f1720;color:#fff;font-size:12px;font-weight:900;margin-bottom:10px}
+    .step strong{display:block;font-size:14px;margin-bottom:4px}.step span{display:block;color:var(--muted);font-size:12px}
+    .service-note{display:flex;align-items:flex-start;gap:10px;background:#eef8f4;border:1px solid #cce9dc;border-radius:14px;padding:13px 14px;margin-top:14px;color:#285346;font-size:13px}
+    .service-note strong{color:#143e31}
+    .sticky-wa{display:none}
     footer{color:var(--muted);font-size:12px;text-align:center;margin-top:22px}
     .status{display:none;margin-top:12px;border-radius:12px;padding:11px 13px;font-size:13px}
     .status.show{display:block}
@@ -84,31 +118,59 @@
     .status.err{background:#fff0f0;color:#8a2424}
     @media(max-width:620px){
       .shell{width:min(100% - 18px,760px);padding-top:9px}
+      .brandbar{padding:3px 3px 0}.brand-phone{display:none}
       .hero{padding:22px;border-radius:22px}
       .card{padding:17px;border-radius:18px}
       .grid,.choices{grid-template-columns:1fr}
-      .scope{grid-template-columns:1fr}
+      .scope,.steps,.trust-strip{grid-template-columns:1fr}
+      .trust-strip{gap:0}.trust-item{border-bottom:1px solid var(--line)}.trust-item:last-child{border-bottom:0}
       .full{grid-column:auto}
       .top-actions,.submit-row{flex-direction:column;align-items:stretch}
       .btn{width:100%}
+      .sticky-wa{display:flex;position:fixed;z-index:20;left:9px;right:9px;bottom:max(9px,env(safe-area-inset-bottom));min-height:52px;background:#1dbf73;color:#071e14;border-radius:15px;align-items:center;justify-content:center;font-size:15px;font-weight:900;text-decoration:none;box-shadow:0 10px 28px rgba(8,63,40,.28)}
+      footer{padding-bottom:48px}
     }
   </style>
 </head>
 <body>
   <main class="shell">
-    <section class="hero">
+    <header class="brandbar">
+      <a class="brand" href="#top" aria-label="Tim Serviços Elétricos — início">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span>Tim Serviços Elétricos<small>Atendimento residencial</small></span>
+      </a>
+      <a class="brand-phone" href="tel:+5513996532915">Ligar: (13) 99653-2915</a>
+    </header>
+
+    <section class="hero" id="top">
       <div class="eyebrow">Balneário Camboriú e região</div>
-      <h1>Manutenção elétrica & técnica residencial</h1>
-      <p class="lead">Descreva o problema em 1 minuto. Tim recebe as informações organizadas e responde pelo WhatsApp para confirmar o atendimento.</p>
+      <h1>Problema elétrico em casa? Fale direto com quem vai atender.</h1>
+      <p class="lead">Explique o que está acontecendo e combine o atendimento diretamente com Tim pelo WhatsApp — com endereço, horário e serviço confirmados antes da visita.</p>
       <div class="hero-meta">
         <span class="pill">Elétrica residencial</span>
         <span class="pill">Diagnóstico de falhas</span>
-        <span class="pill">Aparelhos elétricos</span>
-        <span class="pill">Computadores & rede</span>
+        <span class="pill">Disjuntores, tomadas e iluminação</span>
+        <span class="pill">Pequenos serviços técnicos</span>
       </div>
       <div class="top-actions">
         <a class="btn btn-primary" href="#pedido">Solicitar atendimento</a>
         <a class="btn btn-ghost" href="https://wa.me/5513996532915" target="_blank" rel="noopener">Falar direto no WhatsApp</a>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Como é o atendimento">
+      <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Contato direto</strong><span>Você conversa com o próprio responsável pelo atendimento.</span></div></div>
+      <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Visita combinada</strong><span>Endereço, período e tipo de serviço são confirmados antes.</span></div></div>
+      <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Pedido organizado</strong><span>Envie os detalhes agora e fotos ou vídeos pelo WhatsApp.</span></div></div>
+    </section>
+
+    <section class="card">
+      <h2>Atendimento simples, do início ao fim</h2>
+      <p class="sub">Sem ligação demorada e sem precisar explicar o mesmo problema várias vezes.</p>
+      <div class="steps">
+        <div class="step"><strong>Conte o problema</strong><span>Preencha o pedido rápido ou chame direto no WhatsApp.</span></div>
+        <div class="step"><strong>Envie fotos, se tiver</strong><span>Imagens do local ajudam a entender melhor o atendimento.</span></div>
+        <div class="step"><strong>Confirme a visita</strong><span>Tim responde para alinhar o serviço, endereço e horário.</span></div>
       </div>
     </section>
 
@@ -120,12 +182,13 @@
         <div class="scope-item"><strong>Equipamentos elétricos</strong><span>Diagnóstico de aparelho que não liga, falhas, alimentação e conexões.</span></div>
         <div class="scope-item"><strong>Computadores & rede</strong><span>PC que não liga, cabos, rede doméstica e problemas de conexão.</span></div>
       </div>
+      <div class="service-note"><span aria-hidden="true">●</span><div><strong>Não sabe o nome do serviço?</strong> Sem problema. Descreva o que está acontecendo e envie uma foto pelo WhatsApp.</div></div>
       <div class="notice">Não realizamos obras, construção civil ou serviços de acabamento. Em caso de faíscas, cheiro de queimado ou risco imediato, desligue a energia no quadro apenas se isso puder ser feito com segurança.</div>
     </section>
 
     <form id="pedido" class="card" novalidate>
       <h2>Solicitar atendimento</h2>
-      <p class="sub">Preencha os dados abaixo. Ao enviar, abriremos uma mensagem pronta no WhatsApp do Tim com todas as informações.</p>
+      <p class="sub">Leva cerca de 1 minuto. Ao enviar, abriremos uma mensagem pronta no WhatsApp do Tim.</p>
 
       <div class="grid">
         <div>
@@ -241,6 +304,8 @@
 
     <footer>Tim — Manutenção Elétrica & Técnica Residencial · WhatsApp (13) 99653-2915</footer>
   </main>
+
+  <a class="sticky-wa" href="https://wa.me/5513996532915" target="_blank" rel="noopener">Chamar Tim no WhatsApp</a>
 
 <script>
 (() => {
