@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danyka-icam.github.io/tim-service/sitemap.xml

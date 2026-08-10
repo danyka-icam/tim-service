@@ -3,7 +3,7 @@
 Página estática, mobile-first, pronta para publicar.
 
 ## URL recomendada
-https://brazilportal.online/tim
+https://danyka-icam.github.io/tim-service/
 
 ## Como funciona hoje
 1. O cliente abre a página pelo QR.
@@ -15,14 +15,14 @@ https://brazilportal.online/tim
 O botão “Falar direto no WhatsApp” continua disponível para quem prefere contato direto.
 
 ## Publicação
-Publique `index.html` na rota `/tim` do Brazil Portal.
+O site é publicado pelo GitHub Pages a partir da branch `main`.
 
-Exemplo final:
-https://brazilportal.online/tim
+URL pública:
+https://danyka-icam.github.io/tim-service/
 
 ## Importante
 Esta primeira versão não grava pedidos no servidor. Ela reduz mensagens desestruturadas sem exigir backend.
-Depois podemos conectar a mesma interface ao banco do Brazil Portal/Supabase e salvar cada pedido antes de abrir o WhatsApp.
+Depois podemos conectar a mesma interface a um banco de dados e salvar cada pedido antes de abrir o WhatsApp.
 
 ## WhatsApp
 (13) 99653-2915
