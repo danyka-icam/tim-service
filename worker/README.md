@@ -20,4 +20,4 @@ npx wrangler deploy
 
 After deployment, set `events_endpoint` in `/page-config.json` to the Worker URL ending in `/events`.
 
-`NOTIFY_FLYER_VISITS` controls first-per-session Telegram notifications for QR visits. Form submissions and contact clicks are always notified when the endpoint is configured.
+`NOTIFY_FLYER_VISITS` controls first-per-session Telegram notifications for QR visits. `NOTIFY_SESSION_SUMMARIES` controls end-of-visit summaries. Form submissions and contact clicks are always notified when the endpoint is configured.

@@ -5,5 +5,6 @@
   "title": "Tim Serviços Elétricos — Balneário Camboriú e região",
   "ga_measurement_id": "G-RYSZYCMQWP",
   "events_endpoint": "https://tim-service-events.cambly-studio.workers.dev/events",
-  "notify_flyer_visits": true
+  "notify_flyer_visits": true,
+  "notify_session_summaries": true
 }

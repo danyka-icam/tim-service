@@ -175,16 +175,34 @@
     .service-note{display:flex;align-items:flex-start;gap:10px;background:#eef8f4;border:1px solid #cce9dc;border-radius:14px;padding:13px 14px;margin-top:14px;color:#285346;font-size:13px}
     .service-note strong{color:#143e31}
     .work-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:11px}
-    .work-item{position:relative;min-height:260px;border-radius:16px;overflow:hidden;background:#16201d;color:#fff;text-decoration:none}
+    .work-item{position:relative;min-height:260px;border:0;padding:0;border-radius:16px;overflow:hidden;background:#16201d;color:#fff;text-decoration:none;text-align:left;font:inherit;cursor:zoom-in}
     .work-item:first-child{min-height:360px}
     .work-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
     .work-item:hover img{transform:scale(1.025)}
+    .work-item:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
     .work-item:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(5,13,10,.88))}
     .work-caption{position:absolute;z-index:1;left:15px;right:15px;bottom:14px}
     .work-caption strong{display:block;font-size:14px;margin-bottom:2px}
     .work-caption span{display:block;color:#d5dfdb;font-size:11px}
     .real-badge{display:inline-flex;align-items:center;gap:6px;background:#e9f7f1;color:#176248;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:850;margin-bottom:13px}
     .real-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:#18a66f}
+    .gallery-dialog{position:fixed;z-index:100;inset:0;background:rgba(5,10,9,.93);display:grid;grid-template-columns:minmax(48px,86px) minmax(0,920px) minmax(48px,86px);align-items:center;justify-content:center;padding:20px;color:#fff}
+    .gallery-dialog[hidden]{display:none}
+    .gallery-stage{min-width:0;max-height:calc(100vh - 40px);margin:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .gallery-stage>img{display:block;max-width:100%;max-height:calc(100vh - 175px);width:auto;height:auto;border-radius:16px;box-shadow:0 22px 80px rgba(0,0,0,.45);background:#131b18}
+    .gallery-caption{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;font-size:13px;color:#dfe8e4}
+    .gallery-caption strong{display:block;color:#fff;font-size:15px;margin-bottom:2px}
+    .gallery-counter{white-space:nowrap;color:#b9c7c1}
+    .gallery-nav,.gallery-close{border:0;color:#fff;background:rgba(255,255,255,.1);cursor:pointer;display:grid;place-items:center;transition:.15s ease}
+    .gallery-nav{width:48px;height:64px;border-radius:16px;font-size:30px;justify-self:center}
+    .gallery-nav:hover,.gallery-close:hover{background:rgba(255,255,255,.2)}
+    .gallery-nav:focus-visible,.gallery-close:focus-visible,.gallery-thumb:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .gallery-close{position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;font-size:25px;z-index:2}
+    .gallery-thumbs{display:flex;justify-content:center;gap:8px;max-width:100%;overflow-x:auto;padding:3px}
+    .gallery-thumb{flex:0 0 58px;width:58px;height:48px;padding:0;border:2px solid transparent;border-radius:9px;overflow:hidden;background:#17201d;opacity:.58;cursor:pointer}
+    .gallery-thumb[aria-current="true"]{border-color:var(--accent);opacity:1}
+    .gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    body.gallery-open{overflow:hidden}
     .faq{display:grid;gap:9px}
     .faq details{border:1px solid var(--line);border-radius:14px;background:#fbfcfc;padding:0 14px}
     .faq summary{cursor:pointer;list-style:none;padding:14px 28px 14px 0;font-size:14px;font-weight:800;position:relative}
@@ -222,6 +240,12 @@
       .grid,.choices{grid-template-columns:1fr}
       .scope,.steps,.trust-strip,.work-grid{grid-template-columns:1fr}
       .work-item,.work-item:first-child{min-height:290px}
+      .gallery-dialog{grid-template-columns:44px minmax(0,1fr) 44px;padding:62px 8px 14px}
+      .gallery-stage{max-height:calc(100vh - 76px)}
+      .gallery-stage>img{max-height:calc(100vh - 220px);border-radius:12px}
+      .gallery-nav{width:40px;height:56px;border-radius:13px;font-size:25px}
+      .gallery-close{right:10px;top:10px}
+      .gallery-caption{font-size:12px}.gallery-caption strong{font-size:14px}
       .trust-strip{gap:0}.trust-item{border-bottom:1px solid var(--line)}.trust-item:last-child{border-bottom:0}
       .full{grid-column:auto}
       .top-actions,.submit-row{flex-direction:column;align-items:stretch}
@@ -242,7 +266,7 @@
       <a class="brand-phone" href="tel:+5513996532915">Ligar: (13) 99653-2915</a>
     </header>
 
-    <section class="hero" id="top">
+    <section class="hero" id="top" data-track-section="Início">
       <div class="eyebrow">Balneário Camboriú e região</div>
       <h1>Problema elétrico em casa? Fale direto com quem vai atender.</h1>
       <p class="lead">Explique o que está acontecendo e combine o atendimento diretamente com Tim pelo WhatsApp — com endereço, horário e serviço confirmados antes da visita.</p>
@@ -258,13 +282,13 @@
       </div>
     </section>
 
-    <section class="trust-strip" aria-label="Como é o atendimento">
+    <section class="trust-strip" aria-label="Como é o atendimento" data-track-section="Confiança">
       <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Contato direto</strong><span>Você conversa com o próprio responsável pelo atendimento.</span></div></div>
       <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Visita combinada</strong><span>Endereço, período e tipo de serviço são confirmados antes.</span></div></div>
       <div class="trust-item"><span class="trust-icon" aria-hidden="true">✓</span><div><strong>Pedido organizado</strong><span>Envie os detalhes agora e fotos ou vídeos pelo WhatsApp.</span></div></div>
     </section>
 
-    <section class="card">
+    <section class="card" data-track-section="Como funciona">
       <h2>Atendimento simples, do início ao fim</h2>
       <p class="sub">Sem ligação demorada e sem precisar explicar o mesmo problema várias vezes.</p>
       <div class="steps">
@@ -274,7 +298,7 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" data-track-section="Serviços">
       <h2>Serviços elétricos em Balneário Camboriú</h2>
       <p class="sub">Atendimento residencial em Balneário Camboriú e região para manutenção, diagnóstico e pequenos serviços técnicos.</p>
       <div class="scope">
@@ -286,27 +310,27 @@
       <div class="notice">Não realizamos obras, construção civil ou serviços de acabamento. Em caso de faíscas, cheiro de queimado ou risco imediato, desligue a energia no quadro apenas se isso puder ser feito com segurança.</div>
     </section>
 
-    <section class="card" aria-labelledby="trabalhos-title">
+    <section class="card" aria-labelledby="trabalhos-title" data-track-section="Trabalhos realizados">
       <span class="real-badge">Fotos reais em campo</span>
       <h2 id="trabalhos-title">Trabalhos realizados</h2>
       <p class="sub">Registros feitos durante serviços em instalações e quadros elétricos.</p>
       <div class="work-grid">
-        <a class="work-item" href="images/portfolio/quadro-protecao.jpg" target="_blank" rel="noopener" aria-label="Abrir foto: proteção e comando elétrico">
+        <button class="work-item" type="button" data-gallery-index="0" aria-label="Abrir foto: proteção e comando elétrico">
           <img src="images/portfolio/quadro-protecao.jpg" alt="Quadro elétrico com disjuntores, proteção e sistema de medição" width="675" height="900" loading="lazy" decoding="async">
           <span class="work-caption"><strong>Proteção e comando</strong><span>Montagem e conexão de componentes</span></span>
-        </a>
-        <a class="work-item" href="images/portfolio/entrada-medicao.jpg" target="_blank" rel="noopener" aria-label="Abrir foto: entrada e medição de energia">
+        </button>
+        <button class="work-item" type="button" data-gallery-index="1" aria-label="Abrir foto: entrada e medição de energia">
           <img src="images/portfolio/entrada-medicao.jpg" alt="Entrada de energia com medidor e dispositivos de proteção" width="900" height="1200" loading="lazy" decoding="async">
           <span class="work-caption"><strong>Entrada e medição</strong><span>Organização e proteção elétrica</span></span>
-        </a>
-        <a class="work-item" href="images/portfolio/distribuicao-eletrica.jpg" target="_blank" rel="noopener" aria-label="Abrir foto: quadro de distribuição elétrica">
+        </button>
+        <button class="work-item" type="button" data-gallery-index="2" aria-label="Abrir foto: quadro de distribuição elétrica">
           <img src="images/portfolio/distribuicao-eletrica.jpg" alt="Quadro de distribuição com disjuntores e dispositivos de proteção" width="550" height="694" loading="lazy" decoding="async">
           <span class="work-caption"><strong>Distribuição elétrica</strong><span>Disjuntores e circuitos organizados</span></span>
-        </a>
+        </button>
       </div>
     </section>
 
-    <section class="card" aria-labelledby="duvidas-title">
+    <section class="card" aria-labelledby="duvidas-title" data-track-section="Dúvidas">
       <h2 id="duvidas-title">Dúvidas sobre o atendimento elétrico</h2>
       <p class="sub">Informações rápidas antes de solicitar uma visita.</p>
       <div class="faq">
@@ -329,7 +353,7 @@
       </div>
     </section>
 
-    <form id="pedido" class="card" novalidate>
+    <form id="pedido" class="card" novalidate data-track-section="Formulário">
       <h2>Solicitar atendimento</h2>
       <p class="sub">Leva cerca de 1 minuto. Ao enviar, abriremos uma mensagem pronta no WhatsApp do Tim.</p>
 
@@ -470,14 +494,111 @@
   <a class="sticky-wa" href="https://wa.me/5513996532915" target="_blank" rel="noopener">Chamar Tim no WhatsApp</a>
 
   <aside id="privacy-choice" class="privacy-choice" role="dialog" aria-label="Preferências de estatísticas" hidden>
-    <p><strong>Estatísticas do site</strong>Você pode permitir dados anônimos de visita para melhorar esta página. O atendimento funciona normalmente sem aceitar.</p>
+    <p><strong>Google Analytics</strong>Você pode permitir estatísticas agregadas para melhorar esta página. O atendimento e as notificações operacionais funcionam normalmente sem aceitar.</p>
     <div class="privacy-actions">
       <button class="deny" type="button" data-consent="deny">Continuar sem estatísticas</button>
       <button class="allow" type="button" data-consent="grant">Permitir estatísticas</button>
     </div>
   </aside>
 
+  <div id="gallery-dialog" class="gallery-dialog" role="dialog" aria-modal="true" aria-label="Galeria de trabalhos realizados" hidden>
+    <button class="gallery-close" type="button" aria-label="Fechar galeria">×</button>
+    <button class="gallery-nav gallery-prev" type="button" aria-label="Foto anterior">‹</button>
+    <figure class="gallery-stage">
+      <img id="gallery-image" src="images/portfolio/quadro-protecao.jpg" alt="">
+      <figcaption class="gallery-caption">
+        <span><strong id="gallery-title"></strong><span id="gallery-description"></span></span>
+        <span id="gallery-counter" class="gallery-counter"></span>
+      </figcaption>
+      <div id="gallery-thumbs" class="gallery-thumbs" aria-label="Miniaturas da galeria"></div>
+    </figure>
+    <button class="gallery-nav gallery-next" type="button" aria-label="Próxima foto">›</button>
+  </div>
+
 <script src="assets/site-tracking.js"></script>
+<script>
+(() => {
+  const photos = [
+    { src: 'images/portfolio/quadro-protecao.jpg', title: 'Proteção e comando', description: 'Montagem e conexão de componentes', alt: 'Quadro elétrico com disjuntores, proteção e sistema de medição' },
+    { src: 'images/portfolio/entrada-medicao.jpg', title: 'Entrada e medição', description: 'Organização e proteção elétrica', alt: 'Entrada de energia com medidor e dispositivos de proteção' },
+    { src: 'images/portfolio/distribuicao-eletrica.jpg', title: 'Distribuição elétrica', description: 'Disjuntores e circuitos organizados', alt: 'Quadro de distribuição com disjuntores e dispositivos de proteção' }
+  ];
+  const dialog = document.getElementById('gallery-dialog');
+  const image = document.getElementById('gallery-image');
+  const title = document.getElementById('gallery-title');
+  const description = document.getElementById('gallery-description');
+  const counter = document.getElementById('gallery-counter');
+  const thumbs = document.getElementById('gallery-thumbs');
+  let current = 0;
+  let opener = null;
+  let touchStartX = 0;
+
+  function show(index, track = true) {
+    current = (index + photos.length) % photos.length;
+    const photo = photos[current];
+    image.src = photo.src;
+    image.alt = photo.alt;
+    title.textContent = photo.title;
+    description.textContent = photo.description;
+    counter.textContent = `${current + 1} / ${photos.length}`;
+    thumbs.querySelectorAll('button').forEach((button, buttonIndex) => {
+      button.setAttribute('aria-current', buttonIndex === current ? 'true' : 'false');
+    });
+    if (track) window.TimTracking?.recordAction?.(`Foto: ${photo.title}`);
+  }
+
+  function open(index, button) {
+    opener = button;
+    show(index);
+    dialog.hidden = false;
+    document.body.classList.add('gallery-open');
+    dialog.querySelector('.gallery-close').focus();
+  }
+
+  function close() {
+    dialog.hidden = true;
+    document.body.classList.remove('gallery-open');
+    opener?.focus();
+  }
+
+  photos.forEach((photo, index) => {
+    const button = document.createElement('button');
+    button.className = 'gallery-thumb';
+    button.type = 'button';
+    button.setAttribute('aria-label', `Abrir foto ${index + 1}: ${photo.title}`);
+    button.innerHTML = `<img src="${photo.src}" alt="" loading="lazy">`;
+    button.addEventListener('click', () => show(index));
+    thumbs.appendChild(button);
+  });
+
+  document.querySelectorAll('[data-gallery-index]').forEach(button => {
+    button.addEventListener('click', () => open(Number(button.dataset.galleryIndex), button));
+  });
+  dialog.querySelector('.gallery-close').addEventListener('click', close);
+  dialog.querySelector('.gallery-prev').addEventListener('click', () => show(current - 1));
+  dialog.querySelector('.gallery-next').addEventListener('click', () => show(current + 1));
+  dialog.addEventListener('click', event => { if (event.target === dialog) close(); });
+  dialog.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0]?.clientX || 0; }, { passive: true });
+  dialog.addEventListener('touchend', event => {
+    const distance = (event.changedTouches[0]?.clientX || 0) - touchStartX;
+    if (Math.abs(distance) > 55) show(current + (distance < 0 ? 1 : -1));
+  }, { passive: true });
+  document.addEventListener('keydown', event => {
+    if (dialog.hidden) return;
+    if (event.key === 'Escape') close();
+    if (event.key === 'ArrowLeft') show(current - 1);
+    if (event.key === 'ArrowRight') show(current + 1);
+    if (event.key === 'Tab') {
+      const controls = [...dialog.querySelectorAll('button')];
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  show(0, false);
+})();
+</script>
 <script>
 (() => {
   const form = document.getElementById('pedido');

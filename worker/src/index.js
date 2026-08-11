@@ -1,11 +1,12 @@
 const defaultOrigin = 'https://danyka-icam.github.io';
-const allowedEvents = new Set(['form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit']);
+const allowedEvents = new Set(['form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit', 'session_summary']);
 
 const labels = {
   form_submit: '🟢 Nova solicitação pelo site',
   whatsapp_click: '💬 Clique no WhatsApp',
   phone_click: '📞 Clique para ligar',
-  flyer_visit: '📍 Visita pelo QR do folheto'
+  flyer_visit: '📍 Visita pelo QR do folheto',
+  session_summary: '📊 Resumo da visita ao site'
 };
 
 const clean = (value, limit = 500) => String(value || '').replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, limit);
@@ -25,12 +26,30 @@ function line(label, value) {
   return value ? `<b>${label}:</b> ${escapeHtml(value)}` : '';
 }
 
+function formatDuration(value) {
+  const seconds = Math.max(0, Math.round(Number(value) || 0));
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return minutes ? `${minutes} min ${rest} s` : `${rest} s`;
+}
+
 function buildMessage(payload, request) {
   const details = payload.details || {};
   const campaign = payload.campaign || {};
   const cf = request.cf || {};
   const location = [cf.city, cf.region, cf.country].filter(Boolean).join(', ');
   const source = [campaign.source, campaign.medium, campaign.campaign].filter(Boolean).join(' / ');
+  const sessionLines = payload.event === 'session_summary' ? [
+    line('Tempo na página', formatDuration(details.duration_seconds)),
+    line('Tempo ativo', formatDuration(details.active_seconds)),
+    line('Rolagem máxima', details.max_scroll),
+    line('Seções vistas', details.sections),
+    line('Ações', details.actions || 'Nenhuma ação registrada'),
+    line('Começou formulário', details.form_started),
+    line('Resultado', details.result),
+    line('Google Analytics', details.analytics_consent),
+    line('Encerramento', details.exit_reason)
+  ] : [];
 
   return [
     `<b>${labels[payload.event]}</b>`,
@@ -42,6 +61,7 @@ function buildMessage(payload, request) {
     line('Urgência', details.urgencia),
     line('Problema', details.descricao),
     line('Botão', details.link_location),
+    ...sessionLines,
     line('Origem da campanha', source),
     line('Local aproximado', location),
     line('Dispositivo', payload.device),
@@ -92,6 +112,9 @@ export default {
       return new Response(null, { status: 204, headers });
     }
     if (payload.event === 'flyer_visit' && env.NOTIFY_FLYER_VISITS !== 'true') {
+      return new Response(null, { status: 204, headers });
+    }
+    if (payload.event === 'session_summary' && env.NOTIFY_SESSION_SUMMARIES !== 'true') {
       return new Response(null, { status: 204, headers });
     }
 

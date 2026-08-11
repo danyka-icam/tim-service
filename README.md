@@ -27,6 +27,9 @@ As integrações são configuradas em `page-config.json`:
 - `ga_measurement_id`: ID do fluxo Web do GA4, no formato `G-...`.
 - `events_endpoint`: URL pública do Cloudflare Worker terminada em `/events`.
 - `notify_flyer_visits`: envia ao Telegram a primeira visita da sessão quando a URL contém parâmetros UTM.
+- `notify_session_summaries`: envia ao sair da página um resumo com duração, tempo ativo, rolagem, seções vistas, ações e resultado do contato.
+
+O Google Analytics só é carregado após consentimento. As notificações operacionais do Worker funcionam independentemente dessa escolha e não incluem o conteúdo do formulário antes do envio.
 
 O código seguro do endpoint está em `worker/`. O token do bot e o chat ID são secrets do Worker e nunca devem ser enviados ao navegador ou versionados no Git.
 
