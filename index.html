@@ -201,6 +201,19 @@
     .status.show{display:block}
     .status.ok{background:#eaf8f1;color:#165e43}
     .status.err{background:#fff0f0;color:#8a2424}
+    .consent-check{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:13px;padding:12px 13px;background:#fbfcfc;font-weight:600;line-height:1.4}
+    .consent-check input{width:auto;min-height:0;margin:3px 0 0;flex:0 0 auto}
+    .consent-check span{font-size:12px;color:var(--muted)}
+    .consent-check a{color:#0b7650}
+    .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+    .privacy-choice{position:fixed;z-index:40;left:14px;right:14px;bottom:14px;margin:auto;width:min(680px,calc(100% - 28px));background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 18px 60px rgba(15,23,32,.2);display:flex;align-items:center;gap:14px}
+    .privacy-choice[hidden]{display:none}
+    .privacy-choice p{margin:0;flex:1;color:var(--muted);font-size:12px}
+    .privacy-choice strong{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+    .privacy-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .privacy-actions button{border:0;border-radius:11px;padding:10px 12px;font-weight:800;cursor:pointer}
+    .privacy-actions .allow{background:var(--accent);color:#211a07}
+    .privacy-actions .deny{background:#edf1ef;color:#27342f}
     @media(max-width:620px){
       .shell{width:min(100% - 18px,760px);padding-top:9px}
       .brandbar{padding:3px 3px 0}.brand-phone{display:none}
@@ -214,6 +227,7 @@
       .top-actions,.submit-row{flex-direction:column;align-items:stretch}
       .btn{width:100%}
       .sticky-wa{display:flex;position:fixed;z-index:20;left:9px;right:9px;bottom:max(9px,env(safe-area-inset-bottom));min-height:52px;background:#1dbf73;color:#071e14;border-radius:15px;align-items:center;justify-content:center;font-size:15px;font-weight:900;text-decoration:none;box-shadow:0 10px 28px rgba(8,63,40,.28)}
+      .privacy-choice{bottom:72px;display:block}.privacy-actions{margin-top:10px}.privacy-actions button{flex:1}
       footer{padding-bottom:48px}
     }
   </style>
@@ -319,6 +333,11 @@
       <h2>Solicitar atendimento</h2>
       <p class="sub">Leva cerca de 1 minuto. Ao enviar, abriremos uma mensagem pronta no WhatsApp do Tim.</p>
 
+      <div class="honeypot" aria-hidden="true">
+        <label for="website">Não preencha este campo</label>
+        <input id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
       <div class="grid">
         <div>
           <label for="nome">Seu nome</label>
@@ -421,6 +440,13 @@
           <label>Resumo da solicitação</label>
           <div id="resumo" class="summary">Preencha o formulário e o resumo aparecerá aqui.</div>
         </div>
+
+        <div class="full">
+          <label class="consent-check" for="privacidade">
+            <input id="privacidade" name="privacidade" type="checkbox" required>
+            <span>Concordo com o uso dos dados informados para receber resposta e organizar o atendimento, conforme a <a href="privacy.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
+          </label>
+        </div>
       </div>
 
       <div class="submit-row">
@@ -428,7 +454,7 @@
         <a class="btn" style="background:#edf1ef;color:#27342f" href="tel:+5513996532915">Ligar: (13) 99653-2915</a>
       </div>
       <div id="status" class="status"></div>
-      <p class="small">Os dados não são enviados para um servidor nesta versão. O formulário apenas organiza sua solicitação e abre a mensagem pronta no WhatsApp. Fotos e vídeos podem ser enviados no chat depois.</p>
+      <p class="small">Ao enviar, Tim recebe uma notificação com os dados essenciais da solicitação e o WhatsApp é aberto com a mensagem completa. Fotos e vídeos podem ser enviados no chat depois.</p>
     </form>
 
     <footer>
@@ -443,6 +469,15 @@
 
   <a class="sticky-wa" href="https://wa.me/5513996532915" target="_blank" rel="noopener">Chamar Tim no WhatsApp</a>
 
+  <aside id="privacy-choice" class="privacy-choice" role="dialog" aria-label="Preferências de estatísticas" hidden>
+    <p><strong>Estatísticas do site</strong>Você pode permitir dados anônimos de visita para melhorar esta página. O atendimento funciona normalmente sem aceitar.</p>
+    <div class="privacy-actions">
+      <button class="deny" type="button" data-consent="deny">Continuar sem estatísticas</button>
+      <button class="allow" type="button" data-consent="grant">Permitir estatísticas</button>
+    </div>
+  </aside>
+
+<script src="assets/site-tracking.js"></script>
 <script>
 (() => {
   const form = document.getElementById('pedido');
@@ -476,7 +511,7 @@
   form.addEventListener('input', buildSummary);
   form.addEventListener('change', buildSummary);
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     status.className = 'status';
 
@@ -486,6 +521,8 @@
       status.className = 'status show err';
       return;
     }
+
+    if (get('website')) return;
 
     const s = sintomas();
     const endereco = [get('endereco'), get('complemento')].filter(Boolean).join(' · ');
@@ -511,6 +548,22 @@
 
     status.textContent = 'Abrindo o WhatsApp com sua solicitação pronta…';
     status.className = 'status show ok';
+
+    const lead = {
+      nome: get('nome'),
+      telefone: get('telefone'),
+      cidade: get('cidade'),
+      bairro: get('bairro'),
+      tipo: get('tipo'),
+      urgencia: get('urgencia'),
+      descricao: get('descricao'),
+      website: get('website')
+    };
+
+    const notification = window.TimTracking?.ready
+      ?.then(() => window.TimTracking.notifyLead(lead))
+      ?.catch(() => null) || Promise.resolve();
+    await Promise.race([notification, new Promise(resolve => setTimeout(resolve, 800))]);
 
     const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
     window.location.href = url;
