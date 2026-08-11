@@ -5,10 +5,10 @@ Página estática, mobile-first, pronta para publicar.
 ## URL recomendada
 https://danyka-icam.github.io/tim-service/
 
-## Como funciona hoje
+## Como funciona
 1. O cliente abre a página pelo QR.
 2. Preenche endereço, problema, urgência e horário.
-3. A página monta uma mensagem organizada.
+3. A página monta uma mensagem organizada e, quando o endpoint está configurado, avisa Tim pelo Telegram.
 4. Ao tocar em “Enviar pedido para Tim”, abre o WhatsApp com os dados preenchidos.
 5. O cliente só precisa tocar em Enviar no WhatsApp.
 
@@ -20,9 +20,19 @@ O site é publicado pelo GitHub Pages a partir da branch `main`.
 URL pública:
 https://danyka-icam.github.io/tim-service/
 
-## Importante
-Esta primeira versão não grava pedidos no servidor. Ela reduz mensagens desestruturadas sem exigir backend.
-Depois podemos conectar a mesma interface a um banco de dados e salvar cada pedido antes de abrir o WhatsApp.
+## Analytics e notificações
+
+As integrações são configuradas em `page-config.json`:
+
+- `ga_measurement_id`: ID do fluxo Web do GA4, no formato `G-...`.
+- `events_endpoint`: URL pública do Cloudflare Worker terminada em `/events`.
+- `notify_flyer_visits`: envia ao Telegram a primeira visita da sessão quando a URL contém parâmetros UTM.
+
+O código seguro do endpoint está em `worker/`. O token do bot e o chat ID são secrets do Worker e nunca devem ser enviados ao navegador ou versionados no Git.
+
+Para identificar as visitas dos folhetos, use:
+
+`https://danyka-icam.github.io/tim-service/?utm_source=flyer&utm_medium=qr&utm_campaign=local_bc`
 
 ## WhatsApp
 (13) 99653-2915

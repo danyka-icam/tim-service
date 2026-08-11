@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tim-service-events",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-11",
+  "preview_urls": false,
+  "vars": {
+    "ALLOWED_ORIGIN": "https://danyka-icam.github.io",
+    "NOTIFY_FLYER_VISITS": "true"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
