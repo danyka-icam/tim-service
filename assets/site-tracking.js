@@ -7,6 +7,9 @@
   let config = {};
   let gaReady = false;
   const session = {
+    id: typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID().slice(0, 8)
+      : Math.random().toString(36).slice(2, 10),
     startedAt: Date.now(),
     activeStartedAt: document.visibilityState === 'visible' ? performance.now() : null,
     activeMs: 0,
@@ -60,10 +63,12 @@
   function buildPayload(eventName, details = {}) {
     return {
       event: eventName,
-      page: `${window.location.pathname}${window.location.search}`.slice(0, 500),
+      visit_id: session.id,
+      page: window.location.pathname.slice(0, 500),
       referrer: referrerHost(),
       language: compact(navigator.language),
       device: deviceType(),
+      screen: `${window.innerWidth}×${window.innerHeight}`,
       campaign: campaignData(),
       details
     };
