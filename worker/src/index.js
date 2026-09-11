@@ -1,7 +1,8 @@
 const defaultOrigin = 'https://danyka-icam.github.io';
-const allowedEvents = new Set(['form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit', 'session_summary']);
+const allowedEvents = new Set(['visit_start', 'form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit', 'session_summary']);
 
 const labels = {
+  visit_start: '⚡ TIM SERVICE · НОВЫЙ ВИЗИТ',
   form_submit: '⚡ TIM SERVICE · НОВАЯ ЗАЯВКА',
   whatsapp_click: '⚡ TIM SERVICE · ПЕРЕХОД В WHATSAPP',
   phone_click: '⚡ TIM SERVICE · НАЖАЛ «ПОЗВОНИТЬ»',

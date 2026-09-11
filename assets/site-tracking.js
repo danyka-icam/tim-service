@@ -2,7 +2,7 @@
   const CONFIG_URL = 'page-config.json';
   const CONSENT_KEY = 'tim_analytics_consent';
   const FLYER_VISIT_KEY = 'tim_flyer_visit_notified';
-  const allowedEvents = new Set(['form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit', 'session_summary']);
+  const allowedEvents = new Set(['visit_start', 'form_submit', 'whatsapp_click', 'phone_click', 'flyer_visit', 'session_summary']);
 
   let config = {};
   let gaReady = false;
@@ -271,9 +271,12 @@
     trackContactLinks();
 
     const campaign = campaignData();
-    if (config.notify_flyer_visits && campaign.source && !readStorage(sessionStorage, FLYER_VISIT_KEY)) {
+    const isFlyerCampaign = /^(qr|flyer|folheto|panfleto)$/i.test(campaign.source);
+    if (config.notify_flyer_visits && isFlyerCampaign && !readStorage(sessionStorage, FLYER_VISIT_KEY)) {
       writeStorage(sessionStorage, FLYER_VISIT_KEY, '1');
       void notify('flyer_visit');
+    } else {
+      void notify('visit_start');
     }
   }
 
